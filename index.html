@@ -26,7 +26,7 @@
         body {
             background-color: #f5f7fa;
             color: var(--dark-text);
-            line-height: 1.4;
+            line-height: 1.3;
         }
         
         .container {
@@ -190,7 +190,7 @@
             display: none;
         }
         
-        /* VISTA PREVIA CON PÁGINAS DE TAMAÑO CARTA FIJO */
+        /* VISTA PREVIA CON PÁGINAS OPTIMIZADAS */
         .proposal-preview {
             width: 210mm;
             background: white;
@@ -201,7 +201,7 @@
         .page {
             width: 210mm;
             height: 297mm;
-            padding: 15mm;
+            padding: 12mm;
             background: white;
             margin-bottom: 10px;
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -214,7 +214,7 @@
         }
         
         .page-content {
-            height: calc(297mm - 30mm);
+            height: calc(297mm - 24mm);
             display: flex;
             flex-direction: column;
         }
@@ -225,18 +225,18 @@
         }
         
         .page-footer {
-            height: 10mm;
+            height: 8mm;
             border-top: 1px solid #ddd;
-            padding-top: 3mm;
+            padding-top: 2mm;
             text-align: center;
         }
         
         .proposal-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 12px 15px;
-            margin-bottom: 12px;
-            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
         }
         
         .header-content {
@@ -246,8 +246,8 @@
         }
         
         .company-logo {
-            max-width: 80px;
-            max-height: 50px;
+            max-width: 70px;
+            max-height: 45px;
         }
         
         .company-info {
@@ -255,37 +255,37 @@
         }
         
         .company-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         
         .company-desc {
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.9;
         }
         
         .proposal-title {
             text-align: center;
-            margin: 10px 0;
-            padding: 8px 0;
-            border-top: 2px solid rgba(255,255,255,0.3);
-            border-bottom: 2px solid rgba(255,255,255,0.3);
+            margin: 8px 0;
+            padding: 6px 0;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
         }
         
         .proposal-title h2 {
             color: white;
             border: none;
-            font-size: 20px;
+            font-size: 18px;
             margin: 0;
             line-height: 1.1;
         }
         
         .client-info {
             background: rgba(255,255,255,0.2);
-            padding: 8px;
-            border-radius: 6px;
-            margin-top: 8px;
+            padding: 6px;
+            border-radius: 4px;
+            margin-top: 6px;
         }
         
         .client-info table {
@@ -295,10 +295,10 @@
         }
         
         .client-info td {
-            padding: 3px 2px;
+            padding: 2px 1px;
             border: none;
             color: white !important;
-            font-size: 11px;
+            font-size: 10px;
         }
         
         .client-info strong {
@@ -306,41 +306,41 @@
         }
         
         .section {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         
         .section-title {
             color: var(--primary-color);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 6px;
-            padding-bottom: 3px;
-            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 4px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--primary-color);
         }
         
         .section p {
-            margin-bottom: 6px;
-            line-height: 1.3;
+            margin-bottom: 4px;
+            line-height: 1.2;
             font-size: 11px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 8px 0;
+            margin: 6px 0;
             font-size: 10px;
         }
         
         th {
             background: var(--primary-color);
             color: white;
-            padding: 6px 8px;
+            padding: 4px 6px;
             text-align: left;
             font-weight: 600;
         }
         
         td {
-            padding: 4px 6px;
+            padding: 3px 5px;
             border-bottom: 1px solid var(--border-color);
         }
         
@@ -355,70 +355,70 @@
         
         .notes {
             background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 6px 8px;
-            margin: 8px 0;
+            border-left: 3px solid #ffc107;
+            padding: 4px 6px;
+            margin: 6px 0;
             font-size: 10px;
         }
         
         .notes ul {
-            margin: 3px 0;
-            padding-left: 12px;
+            margin: 2px 0;
+            padding-left: 10px;
         }
         
         .notes li {
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         
         .conditions {
             background: #e8f5e8;
-            border-left: 4px solid #28a745;
-            padding: 6px 8px;
-            margin: 8px 0;
+            border-left: 3px solid #28a745;
+            padding: 4px 6px;
+            margin: 6px 0;
             font-size: 10px;
         }
         
         .conditions ul {
-            margin: 3px 0;
-            padding-left: 12px;
+            margin: 2px 0;
+            padding-left: 10px;
         }
         
         .conditions li {
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         
         .signature {
-            margin: 15px 0;
-            padding: 10px;
-            border-top: 2px solid var(--primary-color);
+            margin: 12px 0;
+            padding: 8px;
+            border-top: 1px solid var(--primary-color);
         }
         
         .footer {
             background: var(--secondary-color);
             color: white;
-            padding: 8px;
+            padding: 6px;
             text-align: center;
-            border-radius: 6px;
-            margin-top: 15px;
+            border-radius: 4px;
+            margin-top: 12px;
         }
         
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 4px;
+            gap: 8px;
+            margin-top: 3px;
             flex-wrap: wrap;
-            font-size: 10px;
+            font-size: 9px;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
         }
         
         .page-number {
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
         }
         
@@ -443,11 +443,11 @@
         }
         
         .compact-section {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .compact-section p {
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         
         /* Estilos para impresión */
@@ -484,7 +484,7 @@
                 width: 210mm;
                 height: 297mm;
                 margin: 0;
-                padding: 15mm;
+                padding: 12mm;
                 box-shadow: none;
                 page-break-after: always;
             }
@@ -853,19 +853,25 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 day: 'numeric'
             });
             
-            // Generar HTML de la propuesta
-            proposalContent.innerHTML = generateProposalHTML(
+            // Generar HTML de la propuesta optimizada
+            proposalContent.innerHTML = generateOptimizedProposalHTML(
                 clientName, proposalTitle, presentationText, managerName, managerPosition,
                 companyEmail, companyPhone, companyWebsite, conditionsList, closingText,
                 residentialPlans, corporatePlan, wifiOptions, combinedPlans, formattedDate
             );
         }
         
-        function generateProposalHTML(clientName, proposalTitle, presentationText, managerName, managerPosition,
+        function generateOptimizedProposalHTML(clientName, proposalTitle, presentationText, managerName, managerPosition,
                                     companyEmail, companyPhone, companyWebsite, conditionsList, closingText,
                                     residentialPlans, corporatePlan, wifiOptions, combinedPlans, formattedDate) {
-            return `
-                <!-- Página 1 - Tamaño Carta Exacto -->
+            
+            // Calcular cuántas páginas necesitamos realmente
+            let pagesHTML = '';
+            let currentPage = 1;
+            let totalPages = 2; // Mínimo 2 páginas
+            
+            // Página 1 - Encabezado + Presentación + Planes Residenciales
+            pagesHTML += `
                 <div class="page">
                     <div class="page-content">
                         <div class="content-area">
@@ -932,46 +938,50 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                         </tbody>
                                     </table>
                                 </div>
+                                
+                                <!-- 3. Plan Corporativo -->
+                                <div class="section compact-section">
+                                    <div class="section-title">3. Plan Corporativo</div>
+                                    <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                                    
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Plan</th>
+                                                <th>Velocidad</th>
+                                                <th>Valor mensual antes de IVA</th>
+                                                <th>Valor con IVA (19%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${corporatePlan.map(plan => `
+                                                <tr>
+                                                    <td>${plan.plan}</td>
+                                                    <td>${plan.speed}</td>
+                                                    <td class="price">${plan.priceBefore}</td>
+                                                    <td class="price">${plan.priceAfter}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="page-footer">
-                            <div class="page-number">Página 1 de 3</div>
+                            <div class="page-number">Página ${currentPage} de 2</div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Página 2 - Tamaño Carta Exacto -->
+            `;
+            
+            currentPage++;
+            
+            // Página 2 - Resto del contenido
+            pagesHTML += `
                 <div class="page">
                     <div class="page-content">
                         <div class="content-area">
-                            <!-- 3. Plan Corporativo -->
-                            <div class="section compact-section">
-                                <div class="section-title">3. Plan Corporativo</div>
-                                <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
-                                
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Plan</th>
-                                            <th>Velocidad</th>
-                                            <th>Valor mensual antes de IVA</th>
-                                            <th>Valor con IVA (19%)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${corporatePlan.map(plan => `
-                                            <tr>
-                                                <td>${plan.plan}</td>
-                                                <td>${plan.speed}</td>
-                                                <td class="price">${plan.priceBefore}</td>
-                                                <td class="price">${plan.priceAfter}</td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
-                            
                             <!-- 4. Solución de Zona WiFi Profesional -->
                             <div class="section compact-section">
                                 <div class="section-title">4. Solución de Zona WiFi Profesional</div>
@@ -998,18 +1008,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        
-                        <div class="page-footer">
-                            <div class="page-number">Página 2 de 3</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Página 3 - Tamaño Carta Exacto -->
-                <div class="page">
-                    <div class="page-content">
-                        <div class="content-area">
+                            
                             <!-- 5. Opción de Plan + Zona WiFi -->
                             <div class="section compact-section">
                                 <div class="section-title">5. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
@@ -1085,11 +1084,13 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                         </div>
                         
                         <div class="page-footer">
-                            <div class="page-number">Página 3 de 3</div>
+                            <div class="page-number">Página ${currentPage} de 2</div>
                         </div>
                     </div>
                 </div>
             `;
+            
+            return pagesHTML;
         }
         
         // Función para generar vista previa de PDF
