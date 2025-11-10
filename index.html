@@ -460,6 +460,106 @@
             margin-bottom: 2px;
         }
         
+        /* Nuevos estilos para elementos visuales */
+        .visual-section {
+            margin: 8px 0;
+            padding: 6px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .benefits-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        
+        .benefit-item {
+            width: 48%;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .benefit-text {
+            font-size: 9px;
+            font-weight: 600;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0;
+            font-size: 9px;
+            color: #666;
+            text-align: center;
+            padding: 0 5px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 6px 0;
+            font-size: 9px;
+        }
+        
+        .comparison-table th {
+            background: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            padding: 4px;
+        }
+        
+        .check-mark {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .x-mark {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background: #e8f4fd;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            padding: 6px;
+            margin: 6px 0;
+            font-size: 10px;
+        }
+        
+        .testimonial {
+            background: #f0f8ff;
+            border-left: 3px solid var(--primary-color);
+            padding: 5px;
+            margin: 5px 0;
+            font-style: italic;
+            font-size: 9px;
+        }
+        
         /* Estilos para impresión */
         @media print {
             body {
@@ -922,9 +1022,41 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <p>${presentationText}</p>
                                 </div>
                                 
-                                <!-- 2. Planes de Internet Residencial -->
+                                <!-- 2. Por qué elegir TICCOL SAS -->
+                                <div class="visual-section">
+                                    <div class="section-title">2. ¿Por qué TICCOL SAS es su mejor opción?</div>
+                                    
+                                    <div class="benefits-grid">
+                                        <div class="benefit-item">
+                                            <div class="benefit-icon">✓</div>
+                                            <div class="benefit-text">Infraestructura Propia</div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <div class="benefit-icon">✓</div>
+                                            <div class="benefit-text">Soporte 24/7</div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <div class="benefit-icon">✓</div>
+                                            <div class="benefit-text">Tecnología de Punta</div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <div class="benefit-icon">✓</div>
+                                            <div class="benefit-text">Precios Competitivos</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="image-placeholder">
+                                        Infraestructura de telecomunicaciones TICCOL SAS - Torres y equipos de última generación
+                                    </div>
+                                    
+                                    <div class="highlight-box">
+                                        <strong>Ventaja competitiva:</strong> Contamos con nuestra propia infraestructura de fibra óptica y torres de transmisión, garantizando estabilidad y calidad en el servicio.
+                                    </div>
+                                </div>
+                                
+                                <!-- 3. Planes de Internet Residencial -->
                                 <div class="section compact-section">
-                                    <div class="section-title">2. Planes de Internet Residencial</div>
+                                    <div class="section-title">3. Planes de Internet Residencial</div>
                                     <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
                                     
                                     <table>
@@ -949,9 +1081,9 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     </table>
                                 </div>
                                 
-                                <!-- 3. Plan Corporativo -->
+                                <!-- 4. Plan Corporativo -->
                                 <div class="section compact-section">
-                                    <div class="section-title">3. Plan Corporativo</div>
+                                    <div class="section-title">4. Plan Corporativo</div>
                                     <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
                                     
                                     <table>
@@ -974,6 +1106,10 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                             `).join('')}
                                         </tbody>
                                     </table>
+                                    
+                                    <div class="image-placeholder">
+                                        Equipos corporativos de alta gama - Routers empresariales y switches gestionables
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1000,10 +1136,14 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 <div class="page">
                     <div class="page-content">
                         <div class="content-area">
-                            <!-- 4. Solución de Zona WiFi Profesional -->
+                            <!-- 5. Solución de Zona WiFi Profesional -->
                             <div class="section compact-section">
-                                <div class="section-title">4. Solución de Zona WiFi Profesional</div>
+                                <div class="section-title">5. Solución de Zona WiFi Profesional</div>
                                 <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público.</p>
+                                
+                                <div class="image-placeholder">
+                                    Instalación de zona WiFi profesional - Cobertura amplia y estable
+                                </div>
                                 
                                 <table>
                                     <thead>
@@ -1027,9 +1167,51 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </table>
                             </div>
                             
-                            <!-- 5. Opción de Plan + Zona WiFi -->
+                            <!-- 6. Comparativa de Servicios -->
+                            <div class="visual-section">
+                                <div class="section-title">6. Comparativa: TICCOL SAS vs Competencia</div>
+                                
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Característica</th>
+                                            <th>TICCOL SAS</th>
+                                            <th>Competencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Infraestructura Propia</td>
+                                            <td class="check-mark">✓</td>
+                                            <td class="x-mark">✗</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Soporte Técnico 24/7</td>
+                                            <td class="check-mark">✓</td>
+                                            <td class="x-mark">✗</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Velocidad Simétrica</td>
+                                            <td class="check-mark">✓</td>
+                                            <td class="x-mark">✗</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Instalación Incluida</td>
+                                            <td class="check-mark">✓</td>
+                                            <td class="x-mark">✗</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Equipos de Alta Calidad</td>
+                                            <td class="check-mark">✓</td>
+                                            <td class="x-mark">✗</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- 7. Opción de Plan + Zona WiFi -->
                             <div class="section compact-section">
-                                <div class="section-title">5. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
+                                <div class="section-title">7. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
                                 <p>TICCOL S.A.S. ofrece la posibilidad de combinar el servicio de Internet con la solución WiFi profesional, distribuyendo el valor total de la instalación en pagos mensuales durante 12 meses, con cláusula de permanencia mínima.</p>
                                 
                                 <table>
@@ -1068,9 +1250,24 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </div>
                             </div>
                             
-                            <!-- 6. Condiciones comerciales -->
+                            <!-- 8. Testimonios -->
+                            <div class="visual-section">
+                                <div class="section-title">8. Lo que dicen nuestros clientes</div>
+                                
+                                <div class="testimonial">
+                                    "TICCOL SAS transformó nuestra conectividad. Pasamos de tener constantes fallas a un servicio estable y de alta velocidad. Su soporte técnico es excepcional."
+                                    <br><strong>- Empresa del Sector Transporte</strong>
+                                </div>
+                                
+                                <div class="testimonial">
+                                    "La instalación fue rápida y profesional. El equipo de TICCOL SAS nos asesoró perfectamente y la zona WiFi ha sido un éxito total con nuestros usuarios."
+                                    <br><strong>- Centro Comercial Local</strong>
+                                </div>
+                            </div>
+                            
+                            <!-- 9. Condiciones comerciales -->
                             <div class="section compact-section">
-                                <div class="section-title">6. Condiciones comerciales</div>
+                                <div class="section-title">9. Condiciones comerciales</div>
                                 <div class="conditions">
                                     <ul>
                                         ${conditionsList.map(condition => `<li>${condition}</li>`).join('')}
@@ -1078,9 +1275,9 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </div>
                             </div>
                             
-                            <!-- 7. Cierre -->
+                            <!-- 10. Cierre -->
                             <div class="section compact-section">
-                                <div class="section-title">7. Cierre</div>
+                                <div class="section-title">10. Cierre</div>
                                 <p>${closingText}</p>
                                 
                                 <div class="signature">
