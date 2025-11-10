@@ -202,6 +202,11 @@
             min-height: 297mm;
             padding: 20mm;
             position: relative;
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
         }
         
         .proposal-header {
@@ -295,6 +300,7 @@
             border-collapse: collapse;
             margin: 15px 0;
             font-size: 14px;
+            page-break-inside: avoid;
         }
         
         th {
@@ -325,6 +331,7 @@
             padding: 12px;
             margin: 15px 0;
             font-size: 14px;
+            page-break-inside: avoid;
         }
         
         .conditions {
@@ -333,12 +340,14 @@
             padding: 12px;
             margin: 15px 0;
             font-size: 14px;
+            page-break-inside: avoid;
         }
         
         .signature {
             margin: 30px 0;
             padding: 20px;
             border-top: 2px solid var(--primary-color);
+            page-break-inside: avoid;
         }
         
         .footer {
@@ -348,6 +357,7 @@
             text-align: center;
             border-radius: 8px;
             margin-top: 30px;
+            page-break-inside: avoid;
         }
         
         .contact-info {
@@ -391,6 +401,14 @@
         
         .preview-btn.active {
             background: var(--secondary-color);
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .no-break {
+            page-break-inside: avoid;
         }
         
         @media (max-width: 1200px) {
@@ -792,13 +810,13 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     
                     <div class="content">
                         <!-- 1. Presentación -->
-                        <div class="section">
+                        <div class="section no-break">
                             <div class="section-title">1. Presentación</div>
                             <p>${presentationText}</p>
                         </div>
                         
                         <!-- 2. Planes de Internet Residencial -->
-                        <div class="section">
+                        <div class="section no-break">
                             <div class="section-title">2. Planes de Internet Residencial</div>
                             <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
                             
@@ -823,41 +841,41 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <!-- 3. Plan Corporativo -->
-                        <div class="section">
-                            <div class="section-title">3. Plan Corporativo</div>
-                            <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Plan</th>
-                                        <th>Velocidad</th>
-                                        <th>Valor mensual antes de IVA</th>
-                                        <th>Valor con IVA (19%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${corporatePlan.map(plan => `
-                                        <tr>
-                                            <td>${plan.plan}</td>
-                                            <td>${plan.speed}</td>
-                                            <td class="price">${plan.priceBefore}</td>
-                                            <td class="price">${plan.priceAfter}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                     <div class="page-number">Página 1</div>
                 </div>
                 
                 <!-- Página 2 -->
                 <div class="page">
+                    <!-- 3. Plan Corporativo -->
+                    <div class="section no-break">
+                        <div class="section-title">3. Plan Corporativo</div>
+                        <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Plan</th>
+                                    <th>Velocidad</th>
+                                    <th>Valor mensual antes de IVA</th>
+                                    <th>Valor con IVA (19%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${corporatePlan.map(plan => `
+                                    <tr>
+                                        <td>${plan.plan}</td>
+                                        <td>${plan.speed}</td>
+                                        <td class="price">${plan.priceBefore}</td>
+                                        <td class="price">${plan.priceAfter}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    
                     <!-- 4. Solución de Zona WiFi Profesional -->
-                    <div class="section">
+                    <div class="section no-break">
                         <div class="section-title">4. Solución de Zona WiFi Profesional</div>
                         <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público.</p>
                         
@@ -882,9 +900,13 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </tbody>
                         </table>
                     </div>
-                    
+                    <div class="page-number">Página 2</div>
+                </div>
+                
+                <!-- Página 3 -->
+                <div class="page">
                     <!-- 5. Opción de Plan + Zona WiFi -->
-                    <div class="section">
+                    <div class="section no-break">
                         <div class="section-title">5. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
                         <p>TICCOL S.A.S. ofrece la posibilidad de combinar el servicio de Internet con la solución WiFi profesional, distribuyendo el valor total de la instalación en pagos mensuales durante 12 meses, con cláusula de permanencia mínima.</p>
                         
@@ -923,13 +945,13 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </ul>
                         </div>
                     </div>
-                    <div class="page-number">Página 2</div>
+                    <div class="page-number">Página 3</div>
                 </div>
                 
-                <!-- Página 3 -->
+                <!-- Página 4 -->
                 <div class="page">
                     <!-- 6. Condiciones comerciales -->
-                    <div class="section">
+                    <div class="section no-break">
                         <div class="section-title">6. Condiciones comerciales</div>
                         <div class="conditions">
                             <ul>
@@ -939,7 +961,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     </div>
                     
                     <!-- 7. Cierre -->
-                    <div class="section">
+                    <div class="section no-break">
                         <div class="section-title">7. Cierre</div>
                         <p>${closingText}</p>
                         
@@ -959,7 +981,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             <div class="contact-item">🌐 ${companyWebsite}</div>
                         </div>
                     </div>
-                    <div class="page-number">Página 3</div>
+                    <div class="page-number">Página 4</div>
                 </div>
             `;
         }
@@ -970,18 +992,22 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             
             const element = document.getElementById('proposalContent');
             const opt = {
-                margin: 10,
+                margin: 15,
                 filename: 'preview.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
                     scale: 2, 
                     useCORS: true,
-                    logging: false
+                    logging: false,
+                    letterRendering: true
                 },
                 jsPDF: { 
                     unit: 'mm', 
                     format: 'a4', 
                     orientation: 'portrait' 
+                },
+                pagebreak: { 
+                    mode: ['avoid-all', 'css', 'legacy'] 
                 }
             };
             
@@ -999,18 +1025,22 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             
             const element = document.getElementById('proposalContent');
             const opt = {
-                margin: 10,
+                margin: 15,
                 filename: `propuesta_comercial_${new Date().toISOString().slice(0,10)}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
                     scale: 2, 
                     useCORS: true,
-                    logging: false
+                    logging: false,
+                    letterRendering: true
                 },
                 jsPDF: { 
                     unit: 'mm', 
                     format: 'a4', 
                     orientation: 'portrait' 
+                },
+                pagebreak: { 
+                    mode: ['avoid-all', 'css', 'legacy'] 
                 }
             };
             
