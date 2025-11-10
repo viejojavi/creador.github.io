@@ -151,14 +151,64 @@
             margin-top: 20px;
         }
         
+        .section-editor {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--light-bg);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .section-title-editor {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .toggle-section {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .section-content {
+            display: block;
+        }
+        
+        .section-content.hidden {
+            display: none;
+        }
+        
         /* Vista previa de la propuesta */
         .proposal-preview {
             width: 210mm;
-            min-height: 297mm;
             background: white;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            padding: 20mm;
             margin-bottom: 20px;
+        }
+        
+        .page {
+            min-height: 297mm;
+            padding: 20mm;
+            position: relative;
+        }
+        
+        .page-break {
+            page-break-after: always;
+            border-top: 1px dashed #ccc;
+            margin: 10mm 0;
+            padding-top: 10mm;
         }
         
         .proposal-header {
@@ -211,10 +261,22 @@
         }
         
         .client-info {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.2);
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
+            color: white;
+        }
+        
+        .client-info table {
+            background: transparent;
+            color: white;
+        }
+        
+        .client-info td {
+            border: none;
+            padding: 5px 0;
+            color: white;
         }
         
         .section {
@@ -305,6 +367,14 @@
             gap: 5px;
         }
         
+        .page-number {
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 12px;
+            color: #666;
+        }
+        
         @media print {
             body * {
                 visibility: hidden;
@@ -321,6 +391,9 @@
                 padding: 0;
                 margin: 0;
             }
+            .page-break {
+                page-break-after: always;
+            }
         }
         
         @media (max-width: 1200px) {
@@ -332,7 +405,6 @@
             }
             .proposal-preview {
                 width: 100%;
-                min-height: auto;
             }
         }
     </style>
@@ -352,71 +424,145 @@
                 <input type="file" id="logoUpload" accept="image/*" style="display: none;">
             </div>
             
-            <h2>Información General</h2>
-            
-            <div class="form-group">
-                <label for="clientName">Nombre del Cliente</label>
-                <input type="text" id="clientName" value="COOTRANSFOMEQUE">
+            <!-- Sección: Información General -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Información General</div>
+                    <button class="toggle-section" data-section="general">▼</button>
+                </div>
+                <div class="section-content" id="general-section">
+                    <div class="form-group">
+                        <label for="clientName">Nombre del Cliente</label>
+                        <input type="text" id="clientName" value="COOTRANSFOMEQUE">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proposalTitle">Título de la Propuesta</label>
+                        <input type="text" id="proposalTitle" value="Servicio de Internet y Zona WiFi Profesional">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="presentationText">Texto de Presentación</label>
+                        <textarea id="presentationText">TICCOL S.A.S., empresa especializada en soluciones de conectividad, redes y telecomunicaciones, presenta la siguiente propuesta comercial para la prestación del servicio de Internet de alta velocidad con zona WiFi profesional, diseñada para cubrir las necesidades operativas y de conectividad de COOTRANSFOMEQUE, garantizando estabilidad, soporte técnico y continuidad de servicio.</textarea>
+                    </div>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="proposalTitle">Título de la Propuesta</label>
-                <input type="text" id="proposalTitle" value="Servicio de Internet y Zona WiFi Profesional">
-            </div>
-            
-            <div class="form-group">
-                <label for="presentationText">Texto de Presentación</label>
-                <textarea id="presentationText">TICCOL S.A.S., empresa especializada en soluciones de conectividad, redes y telecomunicaciones, presenta la siguiente propuesta comercial para la prestación del servicio de Internet de alta velocidad con zona WiFi profesional, diseñada para cubrir las necesidades operativas y de conectividad de COOTRANSFOMEQUE, garantizando estabilidad, soporte técnico y continuidad de servicio.</textarea>
-            </div>
-            
-            <h2>Planes de Internet</h2>
-            
-            <div class="form-group">
-                <label for="residentialPlans">Planes Residenciales (JSON)</label>
-                <textarea id="residentialPlans">[
+            <!-- Sección: Planes de Internet -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Planes de Internet</div>
+                    <button class="toggle-section" data-section="plans">▼</button>
+                </div>
+                <div class="section-content" id="plans-section">
+                    <div class="form-group">
+                        <label for="residentialPlans">Planes Residenciales (JSON)</label>
+                        <textarea id="residentialPlans">[
   {"plan": "Plan Residencial 90 Mbps", "speed": "90 Mbps", "priceBefore": "$80.000", "priceAfter": "$95.200"},
   {"plan": "Plan Residencial 120 Mbps", "speed": "120 Mbps", "priceBefore": "$100.000", "priceAfter": "$119.000"},
   {"plan": "Plan Residencial 200 Mbps", "speed": "200 Mbps", "priceBefore": "$150.000", "priceAfter": "$178.500"}
 ]</textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="corporatePlan">Plan Corporativo (JSON)</label>
-                <textarea id="corporatePlan">[
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="corporatePlan">Plan Corporativo (JSON)</label>
+                        <textarea id="corporatePlan">[
   {"plan": "Plan Corporativo 500 Mbps", "speed": "500 Mbps simétricos", "priceBefore": "$336.135", "priceAfter": "$400.000 aprox."}
 ]</textarea>
+                    </div>
+                </div>
             </div>
             
-            <h2>Información de Contacto</h2>
-            
-            <div class="form-group">
-                <label for="managerName">Nombre del Gerente/Contacto</label>
-                <input type="text" id="managerName" value="Oscar Javier Castillo R">
+            <!-- Sección: Zona WiFi Profesional -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Zona WiFi Profesional</div>
+                    <button class="toggle-section" data-section="wifi">▼</button>
+                </div>
+                <div class="section-content" id="wifi-section">
+                    <div class="form-group">
+                        <label for="wifiOptions">Opciones de Zona WiFi (JSON)</label>
+                        <textarea id="wifiOptions">[
+  {"option": "Opción 1 – Torre Principal", "description": "Emisión desde la torre TICCOL ubicada en el colegio. Incluye soporte de energía contra fallos.", "priceBefore": "$700.000", "priceAfter": "$833.000"},
+  {"option": "Opción 2 – Poste Solar", "description": "Instalación en poste seleccionado por COOTRANSFOMEQUE, con alimentación 100% solar.", "priceBefore": "$2.800.000", "priceAfter": "$3.332.000"}
+]</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="combinedPlans">Planes Combinados (JSON)</label>
+                        <textarea id="combinedPlans">[
+  {"option": "A1", "description": "Zona WiFi desde Torre Principal", "internetPlan": "Plan Residencial 200 Mbps", "priceBefore": "$208.333", "priceAfter": "$247.916", "permanence": "12 meses"},
+  {"option": "A2", "description": "Zona WiFi desde Torre Principal", "internetPlan": "Plan Corporativo 500 Mbps", "priceBefore": "$486.135", "priceAfter": "$578.500", "permanence": "12 meses"},
+  {"option": "B1", "description": "Zona WiFi desde Poste Solar (energía solar 100%)", "internetPlan": "Plan Residencial 200 Mbps", "priceBefore": "$383.333", "priceAfter": "$456.166", "permanence": "12 meses"},
+  {"option": "B2", "description": "Zona WiFi desde Poste Solar (energía solar 100%)", "internetPlan": "Plan Corporativo 500 Mbps", "priceBefore": "$669.445", "priceAfter": "$796.645", "permanence": "12 meses"}
+]</textarea>
+                    </div>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="managerPosition">Cargo</label>
-                <input type="text" id="managerPosition" value="Gerente Técnico">
+            <!-- Sección: Condiciones Comerciales -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Condiciones Comerciales</div>
+                    <button class="toggle-section" data-section="conditions">▼</button>
+                </div>
+                <div class="section-content" id="conditions-section">
+                    <div class="form-group">
+                        <label for="commercialConditions">Condiciones (una por línea)</label>
+                        <textarea id="commercialConditions">Valores expresados en pesos colombianos (COP) antes de IVA del 19%.
+Instalación en un plazo estimado de 2 a 5 días hábiles después de la aceptación formal.
+Incluye configuración de equipos, pruebas de conectividad y capacitación básica.
+Soporte técnico disponible 24/7 vía telefónica y presencial según criticidad.
+Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="closingText">Texto de Cierre</label>
+                        <textarea id="closingText">Agradecemos la oportunidad de presentar esta propuesta y reiteramos nuestro compromiso de brindar un servicio confiable, seguro y de alta calidad que contribuya al fortalecimiento tecnológico de COOTRANSFOMEQUE.</textarea>
+                    </div>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="companyEmail">Email</label>
-                <input type="text" id="companyEmail" value="ingenieria@ticcol.com">
-            </div>
-            
-            <div class="form-group">
-                <label for="companyPhone">Teléfono</label>
-                <input type="text" id="companyPhone" value="300 708 1170">
-            </div>
-            
-            <div class="form-group">
-                <label for="companyWebsite">Sitio Web</label>
-                <input type="text" id="companyWebsite" value="www.ticcol.com">
+            <!-- Sección: Información de Contacto -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Información de Contacto</div>
+                    <button class="toggle-section" data-section="contact">▼</button>
+                </div>
+                <div class="section-content" id="contact-section">
+                    <div class="form-group">
+                        <label for="managerName">Nombre del Gerente/Contacto</label>
+                        <input type="text" id="managerName" value="Oscar Javier Castillo R">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="managerPosition">Cargo</label>
+                        <input type="text" id="managerPosition" value="Gerente Técnico">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyEmail">Email</label>
+                        <input type="text" id="companyEmail" value="ingenieria@ticcol.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyPhone">Teléfono</label>
+                        <input type="text" id="companyPhone" value="300 708 1170">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyWebsite">Sitio Web</label>
+                        <input type="text" id="companyWebsite" value="www.ticcol.com">
+                    </div>
+                </div>
             </div>
             
             <div class="actions">
                 <button class="btn" id="btnUpdatePreview">
                     <i>🔄</i> Actualizar Vista Previa
+                </button>
+                <button class="btn" id="btnExpandAll">
+                    <i>📄</i> Expandir Todo
                 </button>
             </div>
             
@@ -441,6 +587,7 @@
         const logoPreview = document.getElementById('logoPreview');
         const btnUpdatePreview = document.getElementById('btnUpdatePreview');
         const btnExportPDF = document.getElementById('btnExportPDF');
+        const btnExpandAll = document.getElementById('btnExpandAll');
         const proposalContent = document.getElementById('proposalContent');
         
         // Variables para almacenar datos
@@ -465,6 +612,32 @@
             }
         });
         
+        // Configurar botones de toggle para secciones
+        document.querySelectorAll('.toggle-section').forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                const sectionContent = document.getElementById(`${sectionId}-section`);
+                
+                if (sectionContent.classList.contains('hidden')) {
+                    sectionContent.classList.remove('hidden');
+                    this.textContent = '▼';
+                } else {
+                    sectionContent.classList.add('hidden');
+                    this.textContent = '▶';
+                }
+            });
+        });
+        
+        // Expandir todas las secciones
+        btnExpandAll.addEventListener('click', function() {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('hidden');
+            });
+            document.querySelectorAll('.toggle-section').forEach(button => {
+                button.textContent = '▼';
+            });
+        });
+        
         // Actualizar vista previa
         btnUpdatePreview.addEventListener('click', updatePreview);
         
@@ -482,19 +655,30 @@
             const companyEmail = document.getElementById('companyEmail').value;
             const companyPhone = document.getElementById('companyPhone').value;
             const companyWebsite = document.getElementById('companyWebsite').value;
+            const commercialConditions = document.getElementById('commercialConditions').value;
+            const closingText = document.getElementById('closingText').value;
             
             // Obtener y parsear planes
             let residentialPlans = [];
             let corporatePlan = [];
+            let wifiOptions = [];
+            let combinedPlans = [];
             
             try {
                 residentialPlans = JSON.parse(document.getElementById('residentialPlans').value);
                 corporatePlan = JSON.parse(document.getElementById('corporatePlan').value);
+                wifiOptions = JSON.parse(document.getElementById('wifiOptions').value);
+                combinedPlans = JSON.parse(document.getElementById('combinedPlans').value);
             } catch (e) {
                 console.error("Error parsing JSON:", e);
                 residentialPlans = [];
                 corporatePlan = [];
+                wifiOptions = [];
+                combinedPlans = [];
             }
+            
+            // Parsear condiciones comerciales
+            const conditionsList = commercialConditions.split('\n').filter(condition => condition.trim() !== '');
             
             // Obtener fecha actual
             const currentDate = new Date();
@@ -504,109 +688,184 @@
                 day: 'numeric'
             });
             
-            // Generar HTML de la propuesta
+            // Generar HTML de la propuesta con páginas separadas
             proposalContent.innerHTML = `
-                <div class="proposal-header">
-                    <div class="header-content">
-                        <div class="logo-container">
-                            ${logoDataURL ? `<img src="${logoDataURL}" class="company-logo" alt="Logo">` : '<div class="company-name">TICCOL S.A.S.</div>'}
+                <!-- Página 1 -->
+                <div class="page">
+                    <div class="proposal-header">
+                        <div class="header-content">
+                            <div class="logo-container">
+                                ${logoDataURL ? `<img src="${logoDataURL}" class="company-logo" alt="Logo">` : '<div class="company-name">TICCOL S.A.S.</div>'}
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">TICCOL S.A.S.</div>
+                                <div class="company-desc">Tecnología, Información y Comunicaciones de Colombia S.A.S.</div>
+                            </div>
                         </div>
-                        <div class="company-info">
-                            <div class="company-name">TICCOL S.A.S.</div>
-                            <div class="company-desc">Tecnología, Información y Comunicaciones de Colombia S.A.S.</div>
+                        
+                        <div class="proposal-title">
+                            <h2>PROPUESTA COMERCIAL</h2>
+                            <p>${proposalTitle}</p>
+                        </div>
+                        
+                        <div class="client-info">
+                            <table>
+                                <tr>
+                                    <td><strong>Fecha:</strong> ${formattedDate}</td>
+                                    <td><strong>Elaboró:</strong> ${managerName}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Atención:</strong> Gerencia General - ${clientName}</td>
+                                    <td><strong>Cargo:</strong> ${managerPosition}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     
-                    <div class="proposal-title">
-                        <h2>PROPUESTA COMERCIAL</h2>
-                        <p>${proposalTitle}</p>
+                    <div class="content">
+                        <!-- 1. Presentación -->
+                        <div class="section">
+                            <div class="section-title">1. Presentación</div>
+                            <p>${presentationText}</p>
+                        </div>
+                        
+                        <!-- 2. Planes de Internet Residencial -->
+                        <div class="section">
+                            <div class="section-title">2. Planes de Internet Residencial</div>
+                            <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Velocidad</th>
+                                        <th>Valor mensual antes de IVA</th>
+                                        <th>Valor con IVA (19%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${residentialPlans.map(plan => `
+                                        <tr>
+                                            <td>${plan.plan}</td>
+                                            <td>${plan.speed}</td>
+                                            <td class="price">${plan.priceBefore}</td>
+                                            <td class="price">${plan.priceAfter}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- 3. Plan Corporativo -->
+                        <div class="section">
+                            <div class="section-title">3. Plan Corporativo</div>
+                            <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Velocidad</th>
+                                        <th>Valor mensual antes de IVA</th>
+                                        <th>Valor con IVA (19%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${corporatePlan.map(plan => `
+                                        <tr>
+                                            <td>${plan.plan}</td>
+                                            <td>${plan.speed}</td>
+                                            <td class="price">${plan.priceBefore}</td>
+                                            <td class="price">${plan.priceAfter}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    
-                    <div class="client-info">
-                        <table style="background: transparent; color: white; border: none;">
-                            <tr>
-                                <td style="border: none; padding: 5px 0;"><strong>Fecha:</strong> ${formattedDate}</td>
-                                <td style="border: none; padding: 5px 0;"><strong>Elaboró:</strong> ${managerName}</td>
-                            </tr>
-                            <tr>
-                                <td style="border: none; padding: 5px 0;"><strong>Atención:</strong> Gerencia General - ${clientName}</td>
-                                <td style="border: none; padding: 5px 0;"><strong>Cargo:</strong> ${managerPosition}</td>
-                            </tr>
-                        </table>
-                    </div>
+                    <div class="page-number">Página 1</div>
                 </div>
                 
-                <div class="content">
-                    <!-- 1. Presentación -->
+                <!-- Página 2 -->
+                <div class="page">
+                    <!-- 4. Solución de Zona WiFi Profesional -->
                     <div class="section">
-                        <div class="section-title">1. Presentación</div>
-                        <p>${presentationText}</p>
-                    </div>
-                    
-                    <!-- 2. Planes de Internet Residencial -->
-                    <div class="section">
-                        <div class="section-title">2. Planes de Internet Residencial</div>
-                        <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
+                        <div class="section-title">4. Solución de Zona WiFi Profesional</div>
+                        <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público.</p>
                         
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Plan</th>
-                                    <th>Velocidad</th>
-                                    <th>Valor mensual antes de IVA</th>
+                                    <th>Opción</th>
+                                    <th>Descripción</th>
+                                    <th>Valor antes de IVA</th>
                                     <th>Valor con IVA (19%)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${residentialPlans.map(plan => `
+                                ${wifiOptions.map(option => `
                                     <tr>
-                                        <td>${plan.plan}</td>
-                                        <td>${plan.speed}</td>
-                                        <td class="price">${plan.priceBefore}</td>
-                                        <td class="price">${plan.priceAfter}</td>
+                                        <td><strong>${option.option}</strong></td>
+                                        <td>${option.description}</td>
+                                        <td class="price">${option.priceBefore}</td>
+                                        <td class="price">${option.priceAfter}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
                     </div>
                     
-                    <!-- 3. Plan Corporativo -->
+                    <!-- 5. Opción de Plan + Zona WiFi -->
                     <div class="section">
-                        <div class="section-title">3. Plan Corporativo</div>
-                        <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                        <div class="section-title">5. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
+                        <p>TICCOL S.A.S. ofrece la posibilidad de combinar el servicio de Internet con la solución WiFi profesional, distribuyendo el valor total de la instalación en pagos mensuales durante 12 meses, con cláusula de permanencia mínima.</p>
                         
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Plan</th>
-                                    <th>Velocidad</th>
-                                    <th>Valor mensual antes de IVA</th>
-                                    <th>Valor con IVA (19%)</th>
+                                    <th>Opción</th>
+                                    <th>Descripción</th>
+                                    <th>Plan de Internet</th>
+                                    <th>Valor Mensual antes de IVA</th>
+                                    <th>Valor Mensual con IVA (19%)</th>
+                                    <th>Permanencia</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${corporatePlan.map(plan => `
+                                ${combinedPlans.map(plan => `
                                     <tr>
-                                        <td>${plan.plan}</td>
-                                        <td>${plan.speed}</td>
+                                        <td><strong>${plan.option}</strong></td>
+                                        <td>${plan.description}</td>
+                                        <td>${plan.internetPlan}</td>
                                         <td class="price">${plan.priceBefore}</td>
                                         <td class="price">${plan.priceAfter}</td>
+                                        <td>${plan.permanence}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
+
+                        <div class="notes">
+                            <strong>Notas importantes:</strong>
+                            <ul>
+                                <li>Los valores incluyen el servicio de Internet y la cuota mensual correspondiente al valor total de la instalación.</li>
+                                <li>Los precios se calculan con base en la suma del servicio mensual más una doceava parte del valor total de la instalación.</li>
+                                <li>La cláusula de permanencia mínima es de 12 meses. En caso de cancelación anticipada, se cobrará el valor total restante del contrato.</li>
+                                <li>Incluye router, instalación completa y soporte técnico continuo.</li>
+                            </ul>
+                        </div>
                     </div>
-                    
+                    <div class="page-number">Página 2</div>
+                </div>
+                
+                <!-- Página 3 -->
+                <div class="page">
                     <!-- 6. Condiciones comerciales -->
                     <div class="section">
                         <div class="section-title">6. Condiciones comerciales</div>
                         <div class="conditions">
                             <ul>
-                                <li>Valores expresados en pesos colombianos (COP) antes de IVA del 19%.</li>
-                                <li>Instalación en un plazo estimado de 2 a 5 días hábiles después de la aceptación formal.</li>
-                                <li>Incluye configuración de equipos, pruebas de conectividad y capacitación básica.</li>
-                                <li>Soporte técnico disponible 24/7 vía telefónica y presencial según criticidad.</li>
-                                <li>Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.</li>
+                                ${conditionsList.map(condition => `<li>${condition}</li>`).join('')}
                             </ul>
                         </div>
                     </div>
@@ -614,7 +873,7 @@
                     <!-- 7. Cierre -->
                     <div class="section">
                         <div class="section-title">7. Cierre</div>
-                        <p>Agradecemos la oportunidad de presentar esta propuesta y reiteramos nuestro compromiso de brindar un servicio confiable, seguro y de alta calidad que contribuya al fortalecimiento tecnológico de ${clientName}.</p>
+                        <p>${closingText}</p>
                         
                         <div class="signature">
                             <p>Atentamente,</p>
@@ -623,15 +882,16 @@
                             ${managerPosition} – TICCOL S.A.S.</p>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Pie de página -->
-                <div class="footer">
-                    <div class="contact-info">
-                        <div class="contact-item">📧 ${companyEmail}</div>
-                        <div class="contact-item">📞 ${companyPhone}</div>
-                        <div class="contact-item">🌐 ${companyWebsite}</div>
+                    
+                    <!-- Pie de página -->
+                    <div class="footer">
+                        <div class="contact-info">
+                            <div class="contact-item">📧 ${companyEmail}</div>
+                            <div class="contact-item">📞 ${companyPhone}</div>
+                            <div class="contact-item">🌐 ${companyWebsite}</div>
+                        </div>
                     </div>
+                    <div class="page-number">Página 3</div>
                 </div>
             `;
         }
@@ -647,8 +907,9 @@
                 margin: 10,
                 filename: `propuesta_comercial_${new Date().toISOString().slice(0,10)}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] }
             };
             
             // Generar PDF
