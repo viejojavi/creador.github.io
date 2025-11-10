@@ -26,7 +26,7 @@
         body {
             background-color: #f5f7fa;
             color: var(--dark-text);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .container {
@@ -200,20 +200,20 @@
         
         .page {
             min-height: 297mm;
-            padding: 15mm 20mm;
+            padding: 12mm 15mm;
             position: relative;
-            page-break-after: always;
         }
         
-        .page:last-child {
-            page-break-after: avoid;
+        .page:not(:last-child) {
+            margin-bottom: 0;
+            page-break-after: always;
         }
         
         .proposal-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
             border-radius: 6px;
         }
         
@@ -235,7 +235,7 @@
         .company-name {
             font-size: 22px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .company-desc {
@@ -245,8 +245,8 @@
         
         .proposal-title {
             text-align: center;
-            margin: 20px 0;
-            padding: 15px 0;
+            margin: 15px 0;
+            padding: 12px 0;
             border-top: 2px solid rgba(255,255,255,0.3);
             border-bottom: 2px solid rgba(255,255,255,0.3);
         }
@@ -254,15 +254,16 @@
         .proposal-title h2 {
             color: white;
             border: none;
-            font-size: 28px;
+            font-size: 26px;
             margin: 0;
+            line-height: 1.2;
         }
         
         .client-info {
             background: rgba(255,255,255,0.2);
-            padding: 12px;
+            padding: 10px;
             border-radius: 6px;
-            margin-top: 15px;
+            margin-top: 12px;
         }
         
         .client-info table {
@@ -272,7 +273,7 @@
         }
         
         .client-info td {
-            padding: 6px 4px;
+            padding: 5px 3px;
             border: none;
             color: white !important;
             font-size: 13px;
@@ -283,36 +284,41 @@
         }
         
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .section-title {
             color: var(--primary-color);
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 12px;
-            padding-bottom: 6px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
             border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .section p {
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 12px 0;
-            font-size: 13px;
+            margin: 10px 0;
+            font-size: 12px;
             page-break-inside: avoid;
         }
         
         th {
             background: var(--primary-color);
             color: white;
-            padding: 10px 12px;
+            padding: 8px 10px;
             text-align: left;
             font-weight: 600;
         }
         
         td {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-bottom: 1px solid var(--border-color);
         }
         
@@ -328,23 +334,41 @@
         .notes {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
-            padding: 10px;
-            margin: 12px 0;
-            font-size: 13px;
+            padding: 8px 10px;
+            margin: 10px 0;
+            font-size: 12px;
             page-break-inside: avoid;
+        }
+        
+        .notes ul {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+        
+        .notes li {
+            margin-bottom: 3px;
         }
         
         .conditions {
             background: #e8f5e8;
             border-left: 4px solid #28a745;
-            padding: 10px;
-            margin: 12px 0;
-            font-size: 13px;
+            padding: 8px 10px;
+            margin: 10px 0;
+            font-size: 12px;
             page-break-inside: avoid;
         }
         
+        .conditions ul {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+        
+        .conditions li {
+            margin-bottom: 3px;
+        }
+        
         .signature {
-            margin: 25px 0;
+            margin: 20px 0;
             padding: 15px;
             border-top: 2px solid var(--primary-color);
             page-break-inside: avoid;
@@ -353,33 +377,33 @@
         .footer {
             background: var(--secondary-color);
             color: white;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             border-radius: 6px;
-            margin-top: 25px;
+            margin-top: 20px;
             page-break-inside: avoid;
         }
         
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 8px;
+            gap: 12px;
+            margin-top: 6px;
             flex-wrap: wrap;
-            font-size: 13px;
+            font-size: 12px;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         
         .page-number {
             position: absolute;
-            bottom: 10mm;
-            right: 15mm;
-            font-size: 11px;
+            bottom: 8mm;
+            right: 12mm;
+            font-size: 10px;
             color: #666;
         }
         
@@ -403,16 +427,16 @@
             background: var(--secondary-color);
         }
         
-        .page-break {
-            page-break-before: always;
-        }
-        
         .no-break {
             page-break-inside: avoid;
         }
         
-        .compact {
-            margin-bottom: 15px;
+        .compact-section {
+            margin-bottom: 12px;
+        }
+        
+        .compact-section p {
+            margin-bottom: 6px;
         }
         
         @media (max-width: 1200px) {
@@ -814,13 +838,13 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     
                     <div class="content">
                         <!-- 1. Presentación -->
-                        <div class="section compact no-break">
+                        <div class="section compact-section no-break">
                             <div class="section-title">1. Presentación</div>
                             <p>${presentationText}</p>
                         </div>
                         
                         <!-- 2. Planes de Internet Residencial -->
-                        <div class="section compact no-break">
+                        <div class="section compact-section no-break">
                             <div class="section-title">2. Planes de Internet Residencial</div>
                             <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
                             
@@ -847,7 +871,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                         </div>
                         
                         <!-- 3. Plan Corporativo -->
-                        <div class="section compact no-break">
+                        <div class="section compact-section no-break">
                             <div class="section-title">3. Plan Corporativo</div>
                             <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
                             
@@ -879,7 +903,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 <!-- Página 2 -->
                 <div class="page">
                     <!-- 4. Solución de Zona WiFi Profesional -->
-                    <div class="section compact no-break">
+                    <div class="section compact-section no-break">
                         <div class="section-title">4. Solución de Zona WiFi Profesional</div>
                         <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público.</p>
                         
@@ -906,7 +930,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     </div>
                     
                     <!-- 5. Opción de Plan + Zona WiFi -->
-                    <div class="section compact no-break">
+                    <div class="section compact-section no-break">
                         <div class="section-title">5. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
                         <p>TICCOL S.A.S. ofrece la posibilidad de combinar el servicio de Internet con la solución WiFi profesional, distribuyendo el valor total de la instalación en pagos mensuales durante 12 meses, con cláusula de permanencia mínima.</p>
                         
@@ -951,7 +975,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 <!-- Página 3 -->
                 <div class="page">
                     <!-- 6. Condiciones comerciales -->
-                    <div class="section compact no-break">
+                    <div class="section compact-section no-break">
                         <div class="section-title">6. Condiciones comerciales</div>
                         <div class="conditions">
                             <ul>
@@ -961,7 +985,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     </div>
                     
                     <!-- 7. Cierre -->
-                    <div class="section compact no-break">
+                    <div class="section compact-section no-break">
                         <div class="section-title">7. Cierre</div>
                         <p>${closingText}</p>
                         
@@ -992,7 +1016,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             
             const element = document.getElementById('proposalContent');
             const opt = {
-                margin: [5, 5, 5, 5], // Márgenes mínimos: [top, right, bottom, left]
+                margin: [5, 5, 5, 5],
                 filename: 'preview.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
@@ -1007,7 +1031,8 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     orientation: 'portrait' 
                 },
                 pagebreak: { 
-                    mode: ['avoid-all', 'css', 'legacy'] 
+                    mode: ['css', 'legacy'],
+                    avoid: ['table', '.no-break', '.compact-section']
                 }
             };
             
@@ -1025,7 +1050,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             
             const element = document.getElementById('proposalContent');
             const opt = {
-                margin: [5, 5, 5, 5], // Márgenes mínimos: [top, right, bottom, left]
+                margin: [5, 5, 5, 5],
                 filename: `propuesta_comercial_${new Date().toISOString().slice(0,10)}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
@@ -1040,7 +1065,8 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                     orientation: 'portrait' 
                 },
                 pagebreak: { 
-                    mode: ['avoid-all', 'css', 'legacy'] 
+                    mode: ['css', 'legacy'],
+                    avoid: ['table', '.no-break', '.compact-section']
                 }
             };
             
