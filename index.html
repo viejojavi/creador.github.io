@@ -161,7 +161,7 @@
         
         .section-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
@@ -202,13 +202,11 @@
             min-height: 297mm;
             padding: 20mm;
             position: relative;
+            page-break-after: always;
         }
         
-        .page-break {
-            page-break-after: always;
-            border-top: 1px dashed #ccc;
-            margin: 10mm 0;
-            padding-top: 10mm;
+        .page:last-child {
+            page-break-after: avoid;
         }
         
         .proposal-header {
@@ -265,17 +263,22 @@
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
-            color: white;
         }
         
         .client-info table {
-            background: transparent;
+            width: 100%;
+            border-collapse: collapse;
             color: white;
         }
         
         .client-info td {
+            padding: 8px 5px;
             border: none;
-            padding: 5px 0;
+            color: white !important;
+            font-size: 14px;
+        }
+        
+        .client-info strong {
             color: white;
         }
         
@@ -375,6 +378,37 @@
             color: #666;
         }
         
+        .pdf-preview {
+            width: 100%;
+            height: 600px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .preview-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .preview-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
         @media print {
             body * {
                 visibility: hidden;
@@ -390,9 +424,6 @@
                 box-shadow: none;
                 padding: 0;
                 margin: 0;
-            }
-            .page-break {
-                page-break-after: always;
             }
         }
         
@@ -574,6 +605,16 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
         <!-- Panel de vista previa -->
         <div class="preview-panel">
             <h1>Vista Previa de la Propuesta</h1>
+            
+            <div class="preview-controls">
+                <button class="preview-btn" id="btnShowHTML">Vista HTML</button>
+                <button class="preview-btn" id="btnShowPDF">Vista PDF</button>
+            </div>
+            
+            <div class="pdf-preview" id="pdfPreview" style="display: none;">
+                <iframe id="pdfFrame"></iframe>
+            </div>
+            
             <div class="proposal-preview" id="proposalContent">
                 <!-- El contenido de la propuesta se generará aquí -->
             </div>
@@ -588,7 +629,11 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
         const btnUpdatePreview = document.getElementById('btnUpdatePreview');
         const btnExportPDF = document.getElementById('btnExportPDF');
         const btnExpandAll = document.getElementById('btnExpandAll');
+        const btnShowHTML = document.getElementById('btnShowHTML');
+        const btnShowPDF = document.getElementById('btnShowPDF');
         const proposalContent = document.getElementById('proposalContent');
+        const pdfPreview = document.getElementById('pdfPreview');
+        const pdfFrame = document.getElementById('pdfFrame');
         
         // Variables para almacenar datos
         let logoDataURL = '';
@@ -636,6 +681,22 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             document.querySelectorAll('.toggle-section').forEach(button => {
                 button.textContent = '▼';
             });
+        });
+        
+        // Cambiar entre vistas
+        btnShowHTML.addEventListener('click', function() {
+            proposalContent.style.display = 'block';
+            pdfPreview.style.display = 'none';
+            btnShowHTML.style.background = var('--secondary-color');
+            btnShowPDF.style.background = var('--primary-color');
+        });
+        
+        btnShowPDF.addEventListener('click', function() {
+            generatePDFPreview();
+            proposalContent.style.display = 'none';
+            pdfPreview.style.display = 'block';
+            btnShowHTML.style.background = var('--primary-color');
+            btnShowPDF.style.background = var('--secondary-color');
         });
         
         // Actualizar vista previa
@@ -896,23 +957,53 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             `;
         }
         
-        // Función para exportar a PDF
-        function exportToPDF() {
-            // Actualizar la vista previa primero
+        // Función para generar vista previa de PDF
+        function generatePDFPreview() {
             updatePreview();
             
-            // Configuración para html2pdf
+            const element = document.getElementById('proposalContent');
+            const opt = {
+                margin: 10,
+                filename: 'preview.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            html2pdf().set(opt).from(element).outputPdf('datauristring').then(function(pdfString) {
+                pdfFrame.src = pdfString;
+            });
+        }
+        
+        // Función para exportar a PDF
+        function exportToPDF() {
+            updatePreview();
+            
             const element = document.getElementById('proposalContent');
             const opt = {
                 margin: 10,
                 filename: `propuesta_comercial_${new Date().toISOString().slice(0,10)}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css', 'legacy'] }
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
             };
             
-            // Generar PDF
             html2pdf().set(opt).from(element).save();
         }
         
