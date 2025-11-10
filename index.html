@@ -222,7 +222,7 @@
         .content-area {
             flex: 1;
             overflow: hidden;
-            padding-bottom: 15mm; /* Espacio para el pie de página */
+            padding-bottom: 20mm; /* Espacio para el pie de página */
         }
         
         .page-footer {
@@ -411,16 +411,22 @@
             height: 15mm;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .contact-info {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 3px;
             flex-wrap: wrap;
             font-size: 9px;
+            flex: 1;
         }
         
         .contact-item {
@@ -431,7 +437,10 @@
         
         .page-number {
             font-size: 9px;
-            color: #666;
+            color: white;
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: 10px;
         }
         
         .preview-controls {
@@ -980,16 +989,15 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </div>
                         </div>
                         
-                        <div class="page-footer">
-                            <div class="page-number">Página ${currentPage} de 2</div>
-                        </div>
-                        
-                        <!-- Pie de página fijo -->
+                        <!-- Pie de página fijo con paginado -->
                         <div class="footer">
-                            <div class="contact-info">
-                                <div class="contact-item">📧 ${companyEmail}</div>
-                                <div class="contact-item">📞 ${companyPhone}</div>
-                                <div class="contact-item">🌐 ${companyWebsite}</div>
+                            <div class="footer-content">
+                                <div class="contact-info">
+                                    <div class="contact-item">📧 ${companyEmail}</div>
+                                    <div class="contact-item">📞 ${companyPhone}</div>
+                                    <div class="contact-item">🌐 ${companyWebsite}</div>
+                                </div>
+                                <div class="page-number">Página ${currentPage} de 2</div>
                             </div>
                         </div>
                     </div>
@@ -1095,16 +1103,15 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </div>
                         </div>
                         
-                        <div class="page-footer">
-                            <div class="page-number">Página ${currentPage} de 2</div>
-                        </div>
-                        
-                        <!-- Pie de página fijo -->
+                        <!-- Pie de página fijo con paginado -->
                         <div class="footer">
-                            <div class="contact-info">
-                                <div class="contact-item">📧 ${companyEmail}</div>
-                                <div class="contact-item">📞 ${companyPhone}</div>
-                                <div class="contact-item">🌐 ${companyWebsite}</div>
+                            <div class="footer-content">
+                                <div class="contact-info">
+                                    <div class="contact-item">📧 ${companyEmail}</div>
+                                    <div class="contact-item">📞 ${companyPhone}</div>
+                                    <div class="contact-item">🌐 ${companyWebsite}</div>
+                                </div>
+                                <div class="page-number">Página ${currentPage} de 2</div>
                             </div>
                         </div>
                     </div>
