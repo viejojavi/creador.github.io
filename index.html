@@ -222,6 +222,7 @@
         .content-area {
             flex: 1;
             overflow: hidden;
+            padding-bottom: 15mm; /* Espacio para el pie de página */
         }
         
         .page-footer {
@@ -229,6 +230,10 @@
             border-top: 1px solid #ddd;
             padding-top: 2mm;
             text-align: center;
+            position: absolute;
+            bottom: 12mm;
+            left: 12mm;
+            right: 12mm;
         }
         
         .proposal-header {
@@ -399,7 +404,14 @@
             padding: 6px;
             text-align: center;
             border-radius: 4px;
-            margin-top: 12px;
+            position: absolute;
+            bottom: 12mm;
+            left: 12mm;
+            right: 12mm;
+            height: 15mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .contact-info {
@@ -971,6 +983,15 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                         <div class="page-footer">
                             <div class="page-number">Página ${currentPage} de 2</div>
                         </div>
+                        
+                        <!-- Pie de página fijo -->
+                        <div class="footer">
+                            <div class="contact-info">
+                                <div class="contact-item">📧 ${companyEmail}</div>
+                                <div class="contact-item">📞 ${companyPhone}</div>
+                                <div class="contact-item">🌐 ${companyWebsite}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1072,19 +1093,19 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     ${managerPosition} – TICCOL S.A.S.</p>
                                 </div>
                             </div>
-                            
-                            <!-- Pie de página -->
-                            <div class="footer">
-                                <div class="contact-info">
-                                    <div class="contact-item">📧 ${companyEmail}</div>
-                                    <div class="contact-item">📞 ${companyPhone}</div>
-                                    <div class="contact-item">🌐 ${companyWebsite}</div>
-                                </div>
-                            </div>
                         </div>
                         
                         <div class="page-footer">
                             <div class="page-number">Página ${currentPage} de 2</div>
+                        </div>
+                        
+                        <!-- Pie de página fijo -->
+                        <div class="footer">
+                            <div class="contact-info">
+                                <div class="contact-item">📧 ${companyEmail}</div>
+                                <div class="contact-item">📞 ${companyPhone}</div>
+                                <div class="contact-item">🌐 ${companyWebsite}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
