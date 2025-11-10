@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Propuestas Comerciales - TICCOL SAS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2E74B5;
+            --secondary-color: #1a4a7a;
+            --accent-color: #E74C3C;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #fff;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Panel de edición */
+        .editor-panel {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        
+        .preview-panel {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .logo-upload {
+            border: 2px dashed var(--border-color);
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logo-upload:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .logo-preview {
+            max-width: 150px;
+            max-height: 80px;
+            margin: 10px auto;
+            display: none;
+        }
+        
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+        
+        .btn i {
+            margin-right: 5px;
+        }
+        
+        .btn-export {
+            background: var(--accent-color);
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .btn-export:hover {
+            background: #c0392b;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        /* Vista previa de la propuesta */
+        .proposal-preview {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20mm;
+            margin-bottom: 20px;
+        }
+        
+        .proposal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .company-logo {
+            max-width: 120px;
+            max-height: 70px;
+        }
+        
+        .company-info {
+            text-align: right;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .company-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .proposal-title {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .proposal-title h2 {
+            color: white;
+            border: none;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .client-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        th {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light-bg);
+        }
+        
+        .price {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .notes {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .conditions {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .signature {
+            margin: 30px 0;
+            padding: 20px;
+            border-top: 2px solid var(--primary-color);
+        }
+        
+        .footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .proposal-preview, .proposal-preview * {
+                visibility: visible;
+            }
+            .proposal-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            .editor-panel {
+                width: 100%;
+            }
+            .proposal-preview {
+                width: 100%;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Panel de edición -->
+        <div class="editor-panel">
+            <h1>Generador de Propuestas</h1>
+            
+            <div class="form-group">
+                <label for="logoUpload">Logo de la Empresa</label>
+                <div class="logo-upload" id="logoUploadArea">
+                    <p>Haz clic para cargar tu logo</p>
+                    <img id="logoPreview" class="logo-preview" alt="Vista previa del logo">
+                </div>
+                <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+            </div>
+            
+            <h2>Información General</h2>
+            
+            <div class="form-group">
+                <label for="clientName">Nombre del Cliente</label>
+                <input type="text" id="clientName" value="COOTRANSFOMEQUE">
+            </div>
+            
+            <div class="form-group">
+                <label for="proposalTitle">Título de la Propuesta</label>
+                <input type="text" id="proposalTitle" value="Servicio de Internet y Zona WiFi Profesional">
+            </div>
+            
+            <div class="form-group">
+                <label for="presentationText">Texto de Presentación</label>
+                <textarea id="presentationText">TICCOL S.A.S., empresa especializada en soluciones de conectividad, redes y telecomunicaciones, presenta la siguiente propuesta comercial para la prestación del servicio de Internet de alta velocidad con zona WiFi profesional, diseñada para cubrir las necesidades operativas y de conectividad de COOTRANSFOMEQUE, garantizando estabilidad, soporte técnico y continuidad de servicio.</textarea>
+            </div>
+            
+            <h2>Planes de Internet</h2>
+            
+            <div class="form-group">
+                <label for="residentialPlans">Planes Residenciales (JSON)</label>
+                <textarea id="residentialPlans">[
+  {"plan": "Plan Residencial 90 Mbps", "speed": "90 Mbps", "priceBefore": "$80.000", "priceAfter": "$95.200"},
+  {"plan": "Plan Residencial 120 Mbps", "speed": "120 Mbps", "priceBefore": "$100.000", "priceAfter": "$119.000"},
+  {"plan": "Plan Residencial 200 Mbps", "speed": "200 Mbps", "priceBefore": "$150.000", "priceAfter": "$178.500"}
+]</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="corporatePlan">Plan Corporativo (JSON)</label>
+                <textarea id="corporatePlan">[
+  {"plan": "Plan Corporativo 500 Mbps", "speed": "500 Mbps simétricos", "priceBefore": "$336.135", "priceAfter": "$400.000 aprox."}
+]</textarea>
+            </div>
+            
+            <h2>Información de Contacto</h2>
+            
+            <div class="form-group">
+                <label for="managerName">Nombre del Gerente/Contacto</label>
+                <input type="text" id="managerName" value="Oscar Javier Castillo R">
+            </div>
+            
+            <div class="form-group">
+                <label for="managerPosition">Cargo</label>
+                <input type="text" id="managerPosition" value="Gerente Técnico">
+            </div>
+            
+            <div class="form-group">
+                <label for="companyEmail">Email</label>
+                <input type="text" id="companyEmail" value="ingenieria@ticcol.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="companyPhone">Teléfono</label>
+                <input type="text" id="companyPhone" value="300 708 1170">
+            </div>
+            
+            <div class="form-group">
+                <label for="companyWebsite">Sitio Web</label>
+                <input type="text" id="companyWebsite" value="www.ticcol.com">
+            </div>
+            
+            <div class="actions">
+                <button class="btn" id="btnUpdatePreview">
+                    <i>🔄</i> Actualizar Vista Previa
+                </button>
+            </div>
+            
+            <button class="btn btn-export" id="btnExportPDF">
+                <i>📄</i> Exportar a PDF
+            </button>
+        </div>
+        
+        <!-- Panel de vista previa -->
+        <div class="preview-panel">
+            <h1>Vista Previa de la Propuesta</h1>
+            <div class="proposal-preview" id="proposalContent">
+                <!-- El contenido de la propuesta se generará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const logoUpload = document.getElementById('logoUpload');
+        const logoUploadArea = document.getElementById('logoUploadArea');
+        const logoPreview = document.getElementById('logoPreview');
+        const btnUpdatePreview = document.getElementById('btnUpdatePreview');
+        const btnExportPDF = document.getElementById('btnExportPDF');
+        const proposalContent = document.getElementById('proposalContent');
+        
+        // Variables para almacenar datos
+        let logoDataURL = '';
+        
+        // Configurar evento para cargar logo
+        logoUploadArea.addEventListener('click', () => {
+            logoUpload.click();
+        });
+        
+        logoUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoDataURL = e.target.result;
+                    logoPreview.src = logoDataURL;
+                    logoPreview.style.display = 'block';
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Actualizar vista previa
+        btnUpdatePreview.addEventListener('click', updatePreview);
+        
+        // Exportar a PDF
+        btnExportPDF.addEventListener('click', exportToPDF);
+        
+        // Función para actualizar la vista previa
+        function updatePreview() {
+            // Obtener valores del formulario
+            const clientName = document.getElementById('clientName').value;
+            const proposalTitle = document.getElementById('proposalTitle').value;
+            const presentationText = document.getElementById('presentationText').value;
+            const managerName = document.getElementById('managerName').value;
+            const managerPosition = document.getElementById('managerPosition').value;
+            const companyEmail = document.getElementById('companyEmail').value;
+            const companyPhone = document.getElementById('companyPhone').value;
+            const companyWebsite = document.getElementById('companyWebsite').value;
+            
+            // Obtener y parsear planes
+            let residentialPlans = [];
+            let corporatePlan = [];
+            
+            try {
+                residentialPlans = JSON.parse(document.getElementById('residentialPlans').value);
+                corporatePlan = JSON.parse(document.getElementById('corporatePlan').value);
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+                residentialPlans = [];
+                corporatePlan = [];
+            }
+            
+            // Obtener fecha actual
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Generar HTML de la propuesta
+            proposalContent.innerHTML = `
+                <div class="proposal-header">
+                    <div class="header-content">
+                        <div class="logo-container">
+                            ${logoDataURL ? `<img src="${logoDataURL}" class="company-logo" alt="Logo">` : '<div class="company-name">TICCOL S.A.S.</div>'}
+                        </div>
+                        <div class="company-info">
+                            <div class="company-name">TICCOL S.A.S.</div>
+                            <div class="company-desc">Tecnología, Información y Comunicaciones de Colombia S.A.S.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="proposal-title">
+                        <h2>PROPUESTA COMERCIAL</h2>
+                        <p>${proposalTitle}</p>
+                    </div>
+                    
+                    <div class="client-info">
+                        <table style="background: transparent; color: white; border: none;">
+                            <tr>
+                                <td style="border: none; padding: 5px 0;"><strong>Fecha:</strong> ${formattedDate}</td>
+                                <td style="border: none; padding: 5px 0;"><strong>Elaboró:</strong> ${managerName}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; padding: 5px 0;"><strong>Atención:</strong> Gerencia General - ${clientName}</td>
+                                <td style="border: none; padding: 5px 0;"><strong>Cargo:</strong> ${managerPosition}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <!-- 1. Presentación -->
+                    <div class="section">
+                        <div class="section-title">1. Presentación</div>
+                        <p>${presentationText}</p>
+                    </div>
+                    
+                    <!-- 2. Planes de Internet Residencial -->
+                    <div class="section">
+                        <div class="section-title">2. Planes de Internet Residencial</div>
+                        <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Plan</th>
+                                    <th>Velocidad</th>
+                                    <th>Valor mensual antes de IVA</th>
+                                    <th>Valor con IVA (19%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${residentialPlans.map(plan => `
+                                    <tr>
+                                        <td>${plan.plan}</td>
+                                        <td>${plan.speed}</td>
+                                        <td class="price">${plan.priceBefore}</td>
+                                        <td class="price">${plan.priceAfter}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 3. Plan Corporativo -->
+                    <div class="section">
+                        <div class="section-title">3. Plan Corporativo</div>
+                        <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Plan</th>
+                                    <th>Velocidad</th>
+                                    <th>Valor mensual antes de IVA</th>
+                                    <th>Valor con IVA (19%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${corporatePlan.map(plan => `
+                                    <tr>
+                                        <td>${plan.plan}</td>
+                                        <td>${plan.speed}</td>
+                                        <td class="price">${plan.priceBefore}</td>
+                                        <td class="price">${plan.priceAfter}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 6. Condiciones comerciales -->
+                    <div class="section">
+                        <div class="section-title">6. Condiciones comerciales</div>
+                        <div class="conditions">
+                            <ul>
+                                <li>Valores expresados en pesos colombianos (COP) antes de IVA del 19%.</li>
+                                <li>Instalación en un plazo estimado de 2 a 5 días hábiles después de la aceptación formal.</li>
+                                <li>Incluye configuración de equipos, pruebas de conectividad y capacitación básica.</li>
+                                <li>Soporte técnico disponible 24/7 vía telefónica y presencial según criticidad.</li>
+                                <li>Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 7. Cierre -->
+                    <div class="section">
+                        <div class="section-title">7. Cierre</div>
+                        <p>Agradecemos la oportunidad de presentar esta propuesta y reiteramos nuestro compromiso de brindar un servicio confiable, seguro y de alta calidad que contribuya al fortalecimiento tecnológico de ${clientName}.</p>
+                        
+                        <div class="signature">
+                            <p>Atentamente,</p>
+                            <br><br>
+                            <p><strong>${managerName}</strong><br>
+                            ${managerPosition} – TICCOL S.A.S.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pie de página -->
+                <div class="footer">
+                    <div class="contact-info">
+                        <div class="contact-item">📧 ${companyEmail}</div>
+                        <div class="contact-item">📞 ${companyPhone}</div>
+                        <div class="contact-item">🌐 ${companyWebsite}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Función para exportar a PDF
+        function exportToPDF() {
+            // Actualizar la vista previa primero
+            updatePreview();
+            
+            // Configuración para html2pdf
+            const element = document.getElementById('proposalContent');
+            const opt = {
+                margin: 10,
+                filename: `propuesta_comercial_${new Date().toISOString().slice(0,10)}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Generar PDF
+            html2pdf().set(opt).from(element).save();
+        }
+        
+        // Inicializar la vista previa al cargar la página
+        document.addEventListener('DOMContentLoaded', updatePreview);
+    </script>
+</body>
+</html>
