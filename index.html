@@ -714,6 +714,37 @@
                 </div>
             </div>
             
+            <!-- Sección: Comparativa Competitiva -->
+            <div class="section-editor">
+                <div class="section-header">
+                    <div class="section-title-editor">Comparativa Competitiva</div>
+                    <button class="toggle-section" data-section="comparison">▼</button>
+                </div>
+                <div class="section-content" id="comparison-section">
+                    <div class="form-group">
+                        <label for="comparisonTitle">Título de la Comparativa</label>
+                        <input type="text" id="comparisonTitle" value="Comparativa: Calidad de Servicio TICCOL SAS vs Competencia">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comparisonDescription">Descripción de la Comparativa</label>
+                        <textarea id="comparisonDescription">En TICCOL SAS nos enfocamos en brindar un servicio de calidad superior, no solo en infraestructura sino en la experiencia completa del cliente. A diferencia de otros proveedores, nuestra prioridad es garantizar conectividad estable, soporte técnico inmediato y tecnologías avanzadas como IPv6 que aseguran el futuro de su conectividad.</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comparisonFeatures">Características a Comparar (JSON)</label>
+                        <textarea id="comparisonFeatures">[
+  {"feature": "Soporte Técnico 24/7", "ticcol": "Respuesta inmediata vía telefónica y presencial según criticidad", "competition": "Soporte limitado a horario comercial"},
+  {"feature": "Tiempo de Respuesta", "ticcol": "Máximo 2 horas para fallas críticas", "competition": "24-48 horas para atención técnica"},
+  {"feature": "Tecnología IPv6", "ticcol": "Únicos en ofrecer IPv6 nativo a todos los usuarios", "competition": "No disponible o limitado a empresas grandes"},
+  {"feature": "Velocidad Garantizada", "ticcol": "Velocidad simétrica garantizada en contrato", "competition": "Velocidad 'hasta' con fluctuaciones frecuentes"},
+  {"feature": "Estabilidad del Servicio", "ticcol": "99.8% de uptime garantizado con redundancia", "competition": "Sin garantías de estabilidad documentadas"},
+  {"feature": "Personalización", "ticcol": "Soluciones adaptadas a necesidades específicas", "competition": "Planes estandarizados sin flexibilidad"}
+]</textarea>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Sección: Condiciones Comerciales -->
             <div class="section-editor">
                 <div class="section-header">
@@ -916,6 +947,8 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             const clientName = document.getElementById('clientName').value;
             const proposalTitle = document.getElementById('proposalTitle').value;
             const presentationText = document.getElementById('presentationText').value;
+            const comparisonTitle = document.getElementById('comparisonTitle').value;
+            const comparisonDescription = document.getElementById('comparisonDescription').value;
             const managerName = document.getElementById('managerName').value;
             const managerPosition = document.getElementById('managerPosition').value;
             const companyEmail = document.getElementById('companyEmail').value;
@@ -929,12 +962,14 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             let corporatePlan = [];
             let wifiOptions = [];
             let combinedPlans = [];
+            let comparisonFeatures = [];
             
             try {
                 residentialPlans = JSON.parse(document.getElementById('residentialPlans').value);
                 corporatePlan = JSON.parse(document.getElementById('corporatePlan').value);
                 wifiOptions = JSON.parse(document.getElementById('wifiOptions').value);
                 combinedPlans = JSON.parse(document.getElementById('combinedPlans').value);
+                comparisonFeatures = JSON.parse(document.getElementById('comparisonFeatures').value);
             } catch (e) {
                 console.error("Error parsing JSON:", e);
                 // Valores por defecto en caso de error
@@ -949,6 +984,9 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 ];
                 combinedPlans = [
                     {"option": "A1", "description": "Zona WiFi desde Torre Principal", "internetPlan": "Plan Residencial 200 Mbps", "priceBefore": "$208.333", "priceAfter": "$247.916", "permanence": "12 meses"}
+                ];
+                comparisonFeatures = [
+                    {"feature": "Soporte Técnico 24/7", "ticcol": "Respuesta inmediata", "competition": "Soporte limitado"}
                 ];
             }
             
@@ -965,15 +1003,17 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             
             // Generar HTML de la propuesta optimizada
             proposalContent.innerHTML = generateOptimizedProposalHTML(
-                clientName, proposalTitle, presentationText, managerName, managerPosition,
-                companyEmail, companyPhone, companyWebsite, conditionsList, closingText,
-                residentialPlans, corporatePlan, wifiOptions, combinedPlans, formattedDate
+                clientName, proposalTitle, presentationText, comparisonTitle, comparisonDescription,
+                managerName, managerPosition, companyEmail, companyPhone, companyWebsite, 
+                conditionsList, closingText, residentialPlans, corporatePlan, wifiOptions, 
+                combinedPlans, comparisonFeatures, formattedDate
             );
         }
         
-        function generateOptimizedProposalHTML(clientName, proposalTitle, presentationText, managerName, managerPosition,
-                                    companyEmail, companyPhone, companyWebsite, conditionsList, closingText,
-                                    residentialPlans, corporatePlan, wifiOptions, combinedPlans, formattedDate) {
+        function generateOptimizedProposalHTML(clientName, proposalTitle, presentationText, comparisonTitle, comparisonDescription,
+                                    managerName, managerPosition, companyEmail, companyPhone, companyWebsite, 
+                                    conditionsList, closingText, residentialPlans, corporatePlan, wifiOptions, 
+                                    combinedPlans, comparisonFeatures, formattedDate) {
             
             // Calcular cuántas páginas necesitamos realmente
             let pagesHTML = '';
@@ -1029,35 +1069,35 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <div class="benefits-grid">
                                         <div class="benefit-item">
                                             <div class="benefit-icon">✓</div>
-                                            <div class="benefit-text">Infraestructura Propia</div>
-                                        </div>
-                                        <div class="benefit-item">
-                                            <div class="benefit-icon">✓</div>
                                             <div class="benefit-text">Soporte 24/7</div>
                                         </div>
                                         <div class="benefit-item">
                                             <div class="benefit-icon">✓</div>
-                                            <div class="benefit-text">Tecnología de Punta</div>
+                                            <div class="benefit-text">IPv6 Nativo</div>
                                         </div>
                                         <div class="benefit-item">
                                             <div class="benefit-icon">✓</div>
-                                            <div class="benefit-text">Precios Competitivos</div>
+                                            <div class="benefit-text">Velocidad Garantizada</div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <div class="benefit-icon">✓</div>
+                                            <div class="benefit-text">Personalización</div>
                                         </div>
                                     </div>
                                     
                                     <div class="image-placeholder">
-                                        Infraestructura de telecomunicaciones TICCOL SAS - Torres y equipos de última generación
+                                        Infraestructura de telecomunicaciones TICCOL SAS - Soluciones personalizadas para cada cliente
                                     </div>
                                     
                                     <div class="highlight-box">
-                                        <strong>Ventaja competitiva:</strong> Contamos con nuestra propia infraestructura de fibra óptica y torres de transmisión, garantizando estabilidad y calidad en el servicio.
+                                        <strong>Ventaja exclusiva:</strong> Somos los únicos proveedores que ofrecemos IPv6 nativo a todos nuestros usuarios, garantizando compatibilidad con las tecnologías del futuro y mejor seguridad en la conectividad.
                                     </div>
                                 </div>
                                 
                                 <!-- 3. Planes de Internet Residencial -->
                                 <div class="section compact-section">
                                     <div class="section-title">3. Planes de Internet Residencial</div>
-                                    <p>Todos los planes cuentan con velocidad simétrica, router incluido, y soporte técnico permanente.</p>
+                                    <p>Todos los planes cuentan con velocidad simétrica, router incluido, soporte técnico permanente y <strong>IPv6 nativo incluido</strong>.</p>
                                     
                                     <table>
                                         <thead>
@@ -1084,7 +1124,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 <!-- 4. Plan Corporativo -->
                                 <div class="section compact-section">
                                     <div class="section-title">4. Plan Corporativo</div>
-                                    <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad.</p>
+                                    <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad. Incluye <strong>IPv6 nativo</strong> para todas las conexiones.</p>
                                     
                                     <table>
                                         <thead>
@@ -1108,7 +1148,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     </table>
                                     
                                     <div class="image-placeholder">
-                                        Equipos corporativos de alta gama - Routers empresariales y switches gestionables
+                                        Equipos corporativos de alta gama con soporte para IPv6 - Routers empresariales y switches gestionables
                                     </div>
                                 </div>
                             </div>
@@ -1139,10 +1179,10 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             <!-- 5. Solución de Zona WiFi Profesional -->
                             <div class="section compact-section">
                                 <div class="section-title">5. Solución de Zona WiFi Profesional</div>
-                                <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público.</p>
+                                <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público. Todas nuestras soluciones WiFi incluyen soporte para <strong>IPv6 nativo</strong>.</p>
                                 
                                 <div class="image-placeholder">
-                                    Instalación de zona WiFi profesional - Cobertura amplia y estable
+                                    Instalación de zona WiFi profesional - Cobertura amplia y estable con tecnología IPv6
                                 </div>
                                 
                                 <table>
@@ -1169,7 +1209,8 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             
                             <!-- 6. Comparativa de Servicios -->
                             <div class="visual-section">
-                                <div class="section-title">6. Comparativa: TICCOL SAS vs Competencia</div>
+                                <div class="section-title">${comparisonTitle}</div>
+                                <p>${comparisonDescription}</p>
                                 
                                 <table class="comparison-table">
                                     <thead>
@@ -1180,33 +1221,19 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Infraestructura Propia</td>
-                                            <td class="check-mark">✓</td>
-                                            <td class="x-mark">✗</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Soporte Técnico 24/7</td>
-                                            <td class="check-mark">✓</td>
-                                            <td class="x-mark">✗</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Velocidad Simétrica</td>
-                                            <td class="check-mark">✓</td>
-                                            <td class="x-mark">✗</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Instalación Incluida</td>
-                                            <td class="check-mark">✓</td>
-                                            <td class="x-mark">✗</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Equipos de Alta Calidad</td>
-                                            <td class="check-mark">✓</td>
-                                            <td class="x-mark">✗</td>
-                                        </tr>
+                                        ${comparisonFeatures.map(feature => `
+                                            <tr>
+                                                <td><strong>${feature.feature}</strong></td>
+                                                <td class="check-mark">${feature.ticcol}</td>
+                                                <td class="x-mark">${feature.competition}</td>
+                                            </tr>
+                                        `).join('')}
                                     </tbody>
                                 </table>
+                                
+                                <div class="highlight-box">
+                                    <strong>Diferencial clave:</strong> TICCOL SAS es el único proveedor que entrega IPv6 nativo a todos sus usuarios, garantizando preparación para el futuro de Internet, mejor seguridad y compatibilidad con dispositivos IoT.
+                                </div>
                             </div>
                             
                             <!-- 7. Opción de Plan + Zona WiFi -->
@@ -1245,7 +1272,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                         <li>Los valores incluyen el servicio de Internet y la cuota mensual correspondiente al valor total de la instalación.</li>
                                         <li>Los precios se calculan con base en la suma del servicio mensual más una doceava parte del valor total de la instalación.</li>
                                         <li>La cláusula de permanencia mínima es de 12 meses. En caso de cancelación anticipada, se cobrará el valor total restante del contrato.</li>
-                                        <li>Incluye router, instalación completa y soporte técnico continuo.</li>
+                                        <li>Incluye router, instalación completa, soporte técnico continuo y <strong>IPv6 nativo</strong>.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1255,12 +1282,12 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 <div class="section-title">8. Lo que dicen nuestros clientes</div>
                                 
                                 <div class="testimonial">
-                                    "TICCOL SAS transformó nuestra conectividad. Pasamos de tener constantes fallas a un servicio estable y de alta velocidad. Su soporte técnico es excepcional."
+                                    "TICCOL SAS transformó nuestra conectividad. Pasamos de tener constantes fallas a un servicio estable y de alta velocidad. Su soporte técnico es excepcional y la implementación de IPv6 nos ha dado una ventaja competitiva."
                                     <br><strong>- Empresa del Sector Transporte</strong>
                                 </div>
                                 
                                 <div class="testimonial">
-                                    "La instalación fue rápida y profesional. El equipo de TICCOL SAS nos asesoró perfectamente y la zona WiFi ha sido un éxito total con nuestros usuarios."
+                                    "La instalación fue rápida y profesional. El equipo de TICCOL SAS nos asesoró perfectamente y la zona WiFi ha sido un éxito total con nuestros usuarios. El soporte IPv6 nos permite estar preparados para el futuro."
                                     <br><strong>- Centro Comercial Local</strong>
                                 </div>
                             </div>
