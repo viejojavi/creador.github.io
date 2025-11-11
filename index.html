@@ -549,15 +549,6 @@
             margin: 6px 0;
             font-size: 10px;
         }
-        
-        .testimonial {
-            background: #f0f8ff;
-            border-left: 3px solid var(--primary-color);
-            padding: 5px;
-            margin: 5px 0;
-            font-style: italic;
-            font-size: 9px;
-        }
 
         /* Estilos para impresión */
         @media print {
@@ -1014,8 +1005,8 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     conditionsList, closingText, residentialPlans, corporatePlan, wifiOptions, 
                                     combinedPlans, comparisonFeatures, formattedDate) {
             
+            const totalPages = 2; // Total fijo de páginas
             let pagesHTML = '';
-            let currentPage = 1;
             
             // Página 1 - Encabezado + Presentación + Planes Residenciales + Zona WiFi
             pagesHTML += `
@@ -1170,7 +1161,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </div>
                         </div>
                         
-                        <!-- Pie de página fijo con paginado -->
+                        <!-- Pie de página fijo con paginado completo -->
                         <div class="footer">
                             <div class="footer-content">
                                 <div class="contact-info">
@@ -1178,14 +1169,12 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <div class="contact-item">📞 ${companyPhone}</div>
                                     <div class="contact-item">🌐 ${companyWebsite}</div>
                                 </div>
-                                <div class="page-number">Página ${currentPage}</div>
+                                <div class="page-number">Página 1 de ${totalPages}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-            
-            currentPage++;
             
             // Página 2 - Resto del contenido
             pagesHTML += `
@@ -1262,24 +1251,9 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </div>
                             </div>
                             
-                            <!-- 8. Testimonios -->
-                            <div class="visual-section">
-                                <div class="section-title">8. Lo que dicen nuestros clientes</div>
-                                
-                                <div class="testimonial">
-                                    "TICCOL SAS transformó nuestra conectividad. Pasamos de tener constantes fallas a un servicio estable y de alta velocidad. Su soporte técnico es excepcional y la implementación de IPv6 nos ha dado una ventaja competitiva."
-                                    <br><strong>- Empresa del Sector Transporte</strong>
-                                </div>
-                                
-                                <div class="testimonial">
-                                    "La instalación fue rápida y profesional. El equipo de TICCOL SAS nos asesoró perfectamente y la zona WiFi ha sido un éxito total con nuestros usuarios. El soporte IPv6 nos permite estar preparados para el futuro."
-                                    <br><strong>- Centro Comercial Local</strong>
-                                </div>
-                            </div>
-                            
-                            <!-- 9. Condiciones comerciales -->
+                            <!-- 8. Condiciones comerciales -->
                             <div class="section compact-section">
-                                <div class="section-title">9. Condiciones comerciales</div>
+                                <div class="section-title">8. Condiciones comerciales</div>
                                 <div class="conditions">
                                     <ul>
                                         ${conditionsList.map(condition => `<li>${condition}</li>`).join('')}
@@ -1287,9 +1261,9 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 </div>
                             </div>
                             
-                            <!-- 10. Cierre -->
+                            <!-- 9. Cierre -->
                             <div class="section compact-section">
-                                <div class="section-title">10. Cierre</div>
+                                <div class="section-title">9. Cierre</div>
                                 <p>${closingText}</p>
                                 
                                 <div class="signature">
@@ -1301,7 +1275,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                             </div>
                         </div>
                         
-                        <!-- Pie de página fijo con paginado -->
+                        <!-- Pie de página fijo con paginado completo -->
                         <div class="footer">
                             <div class="footer-content">
                                 <div class="contact-info">
@@ -1309,7 +1283,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <div class="contact-item">📞 ${companyPhone}</div>
                                     <div class="contact-item">🌐 ${companyWebsite}</div>
                                 </div>
-                                <div class="page-number">Página ${currentPage}</div>
+                                <div class="page-number">Página 2 de ${totalPages}</div>
                             </div>
                         </div>
                     </div>
