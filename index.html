@@ -559,6 +559,16 @@
             font-style: italic;
             font-size: 9px;
         }
+
+        /* Estilos para tablas compactas */
+        .compact-table {
+            font-size: 9px;
+        }
+        
+        .compact-table th,
+        .compact-table td {
+            padding: 2px 3px;
+        }
         
         /* Estilos para impresión */
         @media print {
@@ -1020,7 +1030,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
             let currentPage = 1;
             let totalPages = 2; // Mínimo 2 páginas
             
-            // Página 1 - Encabezado + Presentación + Planes Residenciales
+            // Página 1 - Encabezado + Presentación + Planes Residenciales + Zona WiFi
             pagesHTML += `
                 <div class="page">
                     <div class="page-content">
@@ -1099,7 +1109,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <div class="section-title">3. Planes de Internet Residencial</div>
                                     <p>Todos los planes cuentan con velocidad simétrica, router incluido, soporte técnico permanente y <strong>IPv6 nativo incluido</strong>.</p>
                                     
-                                    <table>
+                                    <table class="compact-table">
                                         <thead>
                                             <tr>
                                                 <th>Plan</th>
@@ -1126,7 +1136,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                     <div class="section-title">4. Plan Corporativo</div>
                                     <p>Diseñado para empresas con mayores requerimientos de conectividad y estabilidad. Incluye <strong>IPv6 nativo</strong> para todas las conexiones.</p>
                                     
-                                    <table>
+                                    <table class="compact-table">
                                         <thead>
                                             <tr>
                                                 <th>Plan</th>
@@ -1146,10 +1156,33 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                             `).join('')}
                                         </tbody>
                                     </table>
+                                </div>
+                                
+                                <!-- 5. Solución de Zona WiFi Profesional -->
+                                <div class="section compact-section">
+                                    <div class="section-title">5. Solución de Zona WiFi Profesional</div>
+                                    <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público. Todas nuestras soluciones WiFi incluyen soporte para <strong>IPv6 nativo</strong>.</p>
                                     
-                                    <div class="image-placeholder">
-                                        Equipos corporativos de alta gama con soporte para IPv6 - Routers empresariales y switches gestionables
-                                    </div>
+                                    <table class="compact-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Opción</th>
+                                                <th>Descripción</th>
+                                                <th>Valor antes de IVA</th>
+                                                <th>Valor con IVA (19%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${wifiOptions.map(option => `
+                                                <tr>
+                                                    <td><strong>${option.option}</strong></td>
+                                                    <td>${option.description}</td>
+                                                    <td class="price">${option.priceBefore}</td>
+                                                    <td class="price">${option.priceAfter}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -1176,37 +1209,6 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                 <div class="page">
                     <div class="page-content">
                         <div class="content-area">
-                            <!-- 5. Solución de Zona WiFi Profesional -->
-                            <div class="section compact-section">
-                                <div class="section-title">5. Solución de Zona WiFi Profesional</div>
-                                <p>TICCOL S.A.S. ofrece una zona WiFi profesional de alta cobertura, ideal para áreas comunes o de atención al público. Todas nuestras soluciones WiFi incluyen soporte para <strong>IPv6 nativo</strong>.</p>
-                                
-                                <div class="image-placeholder">
-                                    Instalación de zona WiFi profesional - Cobertura amplia y estable con tecnología IPv6
-                                </div>
-                                
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Opción</th>
-                                            <th>Descripción</th>
-                                            <th>Valor antes de IVA</th>
-                                            <th>Valor con IVA (19%)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${wifiOptions.map(option => `
-                                            <tr>
-                                                <td><strong>${option.option}</strong></td>
-                                                <td>${option.description}</td>
-                                                <td class="price">${option.priceBefore}</td>
-                                                <td class="price">${option.priceAfter}</td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
-                            
                             <!-- 6. Comparativa de Servicios -->
                             <div class="visual-section">
                                 <div class="section-title">${comparisonTitle}</div>
@@ -1241,7 +1243,7 @@ Garantía de servicio conforme a las condiciones contractuales de TICCOL S.A.S.<
                                 <div class="section-title">7. Opción de Plan + Zona WiFi (Pago Mensual con Permanencia de 12 Meses)</div>
                                 <p>TICCOL S.A.S. ofrece la posibilidad de combinar el servicio de Internet con la solución WiFi profesional, distribuyendo el valor total de la instalación en pagos mensuales durante 12 meses, con cláusula de permanencia mínima.</p>
                                 
-                                <table>
+                                <table class="compact-table">
                                     <thead>
                                         <tr>
                                             <th>Opción</th>
